@@ -5,6 +5,8 @@
 
 package vahiculos.acdat.mvc_vehiculos;
 
+import vahiculos.acdat.Vista.VentanaPrincipal;
+
 /**
  *
  * @author Dam
@@ -12,6 +14,6 @@ package vahiculos.acdat.mvc_vehiculos;
 public class ACDATMVC_Vehiculos {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        VentanaPrincipal.main(args);
     }
 }

@@ -30,32 +30,49 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
 
     @Override
     public int insertarVehiculo(Vehiculo vehiculo) {
-        falsaBD.add(vehiculo);
+        if(falsaBD.add(vehiculo)){
+            falsaBD.add(vehiculo);
+            return 0;
+        }
 
-        return 1;
+        return -1;
     }
 
     @Override
     public int eliminarVehiculo(String matricula) {
-        // TODO Auto-generated method stub
-        return 0;
+        if(falsaBD.remove(new Vehiculo(matricula))){
+            falsaBD.remove(new Vehiculo(matricula));
+            return 0;
+        }
+        
+        return -1;
     }
 
     @Override
     public int eliminarVehiculos(List<Vehiculo> lstVehiculos) {
-
+        for (Vehiculo lstVehiculo : lstVehiculos) {
+            if(!falsaBD.remove(lstVehiculo)){
+                return -1;
+            }
+            falsaBD.remove(lstVehiculo);
+        }
         return 0;
     }
 
     @Override
     public Vehiculo getVehiculo(String matricula) {
-        // TODO Auto-generated method stub
+        if(falsaBD.contains(new Vehiculo(matricula))){
+            for (Vehiculo vehiculo : falsaBD) {
+                if(new Vehiculo(matricula).equals(vehiculo)){
+                    return vehiculo;
+                }
+            }
+        }
         return null;
     }
 
     @Override
     public List<Vehiculo> getVehiculos() {
-        // TODO Auto-generated method stub
         return this.falsaBD;
     }
 
@@ -69,7 +86,11 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
 
     @Override
     public int eliminarVehiculo(Vehiculo vehiculo) {
-        // TODO Auto-generated method stub
-        return 0;
+        if(falsaBD.remove(vehiculo)){
+            falsaBD.remove(vehiculo);
+            return 0;
+        }
+        
+        return -1;
     }
 }
