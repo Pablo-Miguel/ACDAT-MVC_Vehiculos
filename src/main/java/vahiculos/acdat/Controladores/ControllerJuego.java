@@ -4,7 +4,9 @@
  */
 package vahiculos.acdat.Controladores;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import vahiculos.acdat.Servicio.GestionVehiculos;
 import vahiculos.acdat.Vista.PanelJuego;
 
@@ -18,19 +20,19 @@ public class ControllerJuego {
 
     private PanelJuego panelJuego;
 
-    public ControllerJuego(PanelJuego panelJuego) {
-
+    public ControllerJuego() {
+        
         gestionVehiculos = new GestionVehiculos();
-        this.panelJuego = panelJuego;
+    
     }
 
-    public void nuevoCoche() {
-        panelJuego.etiSecreta.setText(gestionVehiculos.getVehiculo());
+    public void nuevoCoche(JLabel etiSecreta) {
+        etiSecreta.setText(gestionVehiculos.getVehiculo());
 
     }
 
-    public void comprobarCoche() {
-        String palabra = panelJuego.txtRespuesta.getText().toString();
+    public void comprobarCoche(JTextField txtRespuesta) {
+        String palabra = txtRespuesta.getText().toString();
         if (gestionVehiculos.compara(palabra)) {
             JOptionPane.showMessageDialog(panelJuego, "Correcto");
         } else {

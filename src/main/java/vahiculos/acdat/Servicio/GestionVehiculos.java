@@ -16,8 +16,8 @@ import vahiculos.acdat.DAOs.DAOVehiculoImpl;
 public class GestionVehiculos {
 
     private ArrayList<Vehiculo> listaVehiculos;
-    private String cadena = "";
     private Random random;
+    private String cadena;
 
     public GestionVehiculos() {
         listaVehiculos = (ArrayList<Vehiculo>) DAOVehiculoImpl.getInstance().getVehiculos();
@@ -26,21 +26,42 @@ public class GestionVehiculos {
     }
 
     public String getVehiculo() {
-        String cadenaEspacios = "";
+        StringBuilder cadena1, cadena2, cadenaTemp = new StringBuilder();
         Collections.shuffle(listaVehiculos);
         cadena = listaVehiculos.get(0).getMarca() + " " + listaVehiculos.get(0).getModelo();
+        cadena1 = new StringBuilder(listaVehiculos.get(0).getMarca());
+        cadena2 = new StringBuilder(listaVehiculos.get(0).getModelo());
+        
+        cadenaTemp = randomizarPalabra(cadena1);
+        cadenaTemp.append("     " + randomizarPalabra(cadena2));
+        
+        System.out.println(cadena);
+        
+        return cadenaTemp.toString();
+    }
+    
+    private StringBuilder randomizarPalabra(StringBuilder cadena) {
+        StringBuilder cadenaTemp = new StringBuilder();
+        
         for (int cont = 0; cont < cadena.length(); cont++) {
+            
             if (random.nextBoolean()) {
-                cadenaEspacios = cadenaEspacios + cadena.charAt(cont);
+                
+                cadenaTemp.append(cadena.charAt(cont) + " ");
+            
             } else {
-                cadenaEspacios = cadenaEspacios + "_";
+                
+                cadenaTemp.append(" _ ");
+            
             }
+        
         }
-
-        return cadenaEspacios;
+        
+        return cadenaTemp;
     }
 
     public boolean compara(String cadenaJugador) {
         return cadena.equalsIgnoreCase(cadenaJugador);
     }
+
 }

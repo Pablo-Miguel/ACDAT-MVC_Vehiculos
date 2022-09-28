@@ -4,22 +4,14 @@
  */
 package vahiculos.acdat.Vista;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import vahiculos.acdat.Controladores.ControllerJuego;
 
 /**
  *
  * @author Nitro
  */
-public class PanelJuego extends javax.swing.JPanel implements ActionListener {
-
-    public JTextField txtRespuesta;
-    public JLabel etiSecreta;
-    JButton btnNuevoCoche, btnComprobar;
+public class PanelJuego extends javax.swing.JPanel {
+    
     ControllerJuego conJuego;
     VentanaPrincipal ventana;
 
@@ -27,42 +19,12 @@ public class PanelJuego extends javax.swing.JPanel implements ActionListener {
      * Creates new form PanelJuego
      */
     public PanelJuego(VentanaPrincipal ventana) {
-        //initComponents();
+        initComponents();
+        
         this.ventana = ventana;
-        conJuego = new ControllerJuego(this);
+        
+        conJuego = new ControllerJuego();
 
-        setLayout(null);
-
-        txtRespuesta = new JTextField();
-        txtRespuesta.setBounds(77, 122, 137, 20);
-        add(txtRespuesta);
-        txtRespuesta.setColumns(10);
-
-        etiSecreta = new JLabel("Pulse nuevo para comenzar");
-        etiSecreta.setBounds(77, 58, 137, 19);
-        add(etiSecreta);
-
-        btnNuevoCoche = new JButton("Pulse nuevo para comenzar");
-        btnNuevoCoche.addActionListener(this);
-        btnNuevoCoche.setBounds(241, 54, 89, 23);
-        add(btnNuevoCoche);
-
-        btnComprobar = new JButton("Comprobar");
-        btnComprobar.addActionListener(this);
-        btnComprobar.setBounds(241, 121, 89, 23);
-        add(btnComprobar);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        if (e.getSource() == btnNuevoCoche) {
-            conJuego.nuevoCoche();
-
-        } else if (e.getSource() == btnComprobar) {
-            conJuego.comprobarCoche();
-
-        }
     }
 
     /**
@@ -74,19 +36,71 @@ public class PanelJuego extends javax.swing.JPanel implements ActionListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        etiSecreta = new javax.swing.JLabel();
+        btnNuevoCoche = new javax.swing.JButton();
+        btnComprobar = new javax.swing.JButton();
+        txtRespuesta = new javax.swing.JTextField();
+
+        etiSecreta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiSecreta.setText("Pulse nuevo para comenzar");
+
+        btnNuevoCoche.setText("Nuevo");
+        btnNuevoCoche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoCocheActionPerformed(evt);
+            }
+        });
+
+        btnComprobar.setText("Comprobar");
+        btnComprobar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComprobarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 728, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(133, 133, 133)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(etiSecreta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnComprobar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevoCoche, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etiSecreta, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevoCoche, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnComprobar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(233, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnNuevoCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoCocheActionPerformed
+        conJuego.nuevoCoche(etiSecreta);
+    }//GEN-LAST:event_btnNuevoCocheActionPerformed
+
+    private void btnComprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprobarActionPerformed
+        conJuego.comprobarCoche(txtRespuesta);
+    }//GEN-LAST:event_btnComprobarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnComprobar;
+    private javax.swing.JButton btnNuevoCoche;
+    private javax.swing.JLabel etiSecreta;
+    private javax.swing.JTextField txtRespuesta;
     // End of variables declaration//GEN-END:variables
 }

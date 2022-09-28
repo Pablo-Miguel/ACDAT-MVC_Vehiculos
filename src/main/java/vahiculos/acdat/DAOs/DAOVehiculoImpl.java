@@ -31,7 +31,6 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
     @Override
     public int insertarVehiculo(Vehiculo vehiculo) {
         if(falsaBD.add(vehiculo)){
-            falsaBD.add(vehiculo);
             return 0;
         }
 
@@ -41,7 +40,6 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
     @Override
     public int eliminarVehiculo(String matricula) {
         if(falsaBD.remove(new Vehiculo(matricula))){
-            falsaBD.remove(new Vehiculo(matricula));
             return 0;
         }
         
@@ -87,7 +85,6 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
     @Override
     public int eliminarVehiculo(Vehiculo vehiculo) {
         if(falsaBD.remove(vehiculo)){
-            falsaBD.remove(vehiculo);
             return 0;
         }
         

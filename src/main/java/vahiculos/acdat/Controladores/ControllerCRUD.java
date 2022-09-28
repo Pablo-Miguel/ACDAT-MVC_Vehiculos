@@ -9,7 +9,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import vahiculos.acdat.DAOs.DAOVehiculoImpl;
 import vahiculos.acdat.Servicio.Vehiculo;
-import vahiculos.acdat.Vista.PanelCRUD;
 
 /**
  *
@@ -17,7 +16,7 @@ import vahiculos.acdat.Vista.PanelCRUD;
  */
 public class ControllerCRUD {
 
-    public static void cargarTabla(JTable tablaVehiculos) { //DefaultTableModel modeloDeDatosTabla = (DefaultTableModel) tablaVehiculos.getModel();
+    public static void cargarTabla(JTable tablaVehiculos) {
         List<Vehiculo> lstVehiculos = DAOVehiculoImpl.getInstance().getVehiculos();
 
         DefaultTableModel modelo = new DefaultTableModel();
@@ -28,7 +27,7 @@ public class ControllerCRUD {
 
         modelo.addColumn("Matricula");
 
-        Object[] registroLeido = new Object[3];
+        Object[] registroLeido = new Object[modelo.getColumnCount()];
 
         for (Vehiculo vehiculo : lstVehiculos) {
 
@@ -45,17 +44,10 @@ public class ControllerCRUD {
         tablaVehiculos.setModel(modelo);
     }
 
-    public static boolean insertarVehiculo(PanelCRUD frmVehiculo, JTable tablaVehiculos) {
+    public static boolean insertarVehiculo(String marca, String modelo, String matricula, JTable tablaVehiculos) {
         boolean insertado = false;
-        Vehiculo vehiculo = new Vehiculo();
 
-        vehiculo.setMarca(frmVehiculo.getTxtMarca().getText());
-
-        vehiculo.setModelo(frmVehiculo.getTxtModelo().getText());
-
-        vehiculo.setMatricula(frmVehiculo.getTxtMatricula().getText());
-
-        if (DAOVehiculoImpl.getInstance().insertarVehiculo(vehiculo) != 0) {
+        if (DAOVehiculoImpl.getInstance().insertarVehiculo(new Vehiculo(marca, modelo, matricula)) == 0) {
             insertado = true;
             cargarTabla(tablaVehiculos);
         }

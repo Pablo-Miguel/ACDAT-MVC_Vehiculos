@@ -4,8 +4,6 @@
  */
 package vahiculos.acdat.Vista;
 
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
 import vahiculos.acdat.Controladores.ControllerCRUD;
 
 /**
@@ -22,66 +20,11 @@ public class PanelCRUD extends javax.swing.JPanel {
 
     public PanelCRUD(VentanaPrincipal ventana) {
         initComponents();
+        
         this.ventana = ventana;
-        this.inicializarPanel();
+        
         ControllerCRUD.cargarTabla(tablaVehiculos);
     }
-
-    private void txtModeloActionPerformed(java.awt.event.ActionEvent evt) {
-
-        // TODO add your handling code here:
-    }
-
-    private void btRegistrarActionPerformed(java.awt.event.ActionEvent evt) {
-
-        //  DAOVehiculoImpl.getInstance().insertarVehiculo(new Vehiculo(txtMatricula.getText(), ))
-        ControllerCRUD.insertarVehiculo(this, tablaVehiculos);
-
-    }
-
-    public javax.swing.JTextField getTxtMatricula() {
-        return txtMatricula;
-    }
-
-    public void setTxtMatricula(javax.swing.JTextField txtMatricula) {
-        this.txtMatricula = txtMatricula;
-    }
-
-    public javax.swing.JTextField getTxtMarca() {
-        return txtMarca;
-    }
-
-    public void setTxtMarca(javax.swing.JTextField txtMarca) {
-        this.txtMarca = txtMarca;
-    }
-
-    public javax.swing.JTextField getTxtModelo() {
-        return txtModelo;
-    }
-
-    public void setTxtModelo(javax.swing.JTextField txtModelo) {
-        this.txtModelo = txtModelo;
-    }
-
-    private javax.swing.JButton btLeer;
-
-    private javax.swing.JButton btRegistrar;
-
-    private javax.swing.JLabel jLabel1;
-
-    private javax.swing.JLabel jLabel2;
-
-    private javax.swing.JLabel jLabelMatricula;
-
-    private javax.swing.JScrollPane jScrollPane1;
-
-    private javax.swing.JTable tablaVehiculos;
-
-    private javax.swing.JTextField txtMatricula;
-
-    private javax.swing.JTextField txtMarca;
-
-    private javax.swing.JTextField txtModelo;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,157 +35,124 @@ public class PanelCRUD extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 728, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
-        );
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void inicializarPanel() {
-
-        jLabel1 = new javax.swing.JLabel();
-
-        jScrollPane1 = new javax.swing.JScrollPane();
-
+        jScrollPanel = new javax.swing.JScrollPane();
         tablaVehiculos = new javax.swing.JTable();
-
-        txtMarca = new javax.swing.JTextField();
-
+        lblMarca = new javax.swing.JLabel();
+        lblModelo = new javax.swing.JLabel();
+        lblMatricula = new javax.swing.JLabel();
         txtModelo = new javax.swing.JTextField();
-
-        jLabel2 = new javax.swing.JLabel();
-
-        jLabelMatricula = new javax.swing.JLabel();
-
         txtMatricula = new javax.swing.JTextField();
-
+        txtMarca = new javax.swing.JTextField();
         btRegistrar = new javax.swing.JButton();
-
         btLeer = new javax.swing.JButton();
 
-        jLabel1.setText("Marca");
-
         tablaVehiculos.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-
-                },
-                new String[]{
-                    "Title 1", "Title 2", "Title 3", "Title 4"
-
-                }
-        ));
-
-        jScrollPane1.setViewportView(tablaVehiculos);
-
-        txtMarca.setName("marca"); // NOI18N
-
-        txtModelo.setToolTipText("");
-
-        txtModelo.setName("modelo"); // NOI18N
-
-        txtModelo.addActionListener(new java.awt.event.ActionListener() {
-
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-
-                txtModeloActionPerformed(evt);
-
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Marca", "Modelo", "Matricula"
             }
+        ));
+        jScrollPanel.setViewportView(tablaVehiculos);
 
-        });
+        lblMarca.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblMarca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMarca.setText("Marca");
+        lblMarca.setPreferredSize(new java.awt.Dimension(41, 16));
 
-        jLabel2.setText("Modelo");
+        lblModelo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblModelo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModelo.setText("Modelo");
 
-        jLabelMatricula.setText("Matricula");
-
-        txtMatricula.setToolTipText("");
+        lblMatricula.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblMatricula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMatricula.setText("Matrícula");
+        lblMatricula.setPreferredSize(new java.awt.Dimension(41, 16));
 
         btRegistrar.setText("Registrar");
-
-        btRegistrar.setActionCommand("btRegistrar");
-
-        btRegistrar.setName("btRegistrar"); // NOI18N
-
         btRegistrar.addActionListener(new java.awt.event.ActionListener() {
-
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-
                 btRegistrarActionPerformed(evt);
-
             }
-
         });
 
         btLeer.setText("Leer");
 
-        btLeer.setToolTipText("");
-
-        btLeer.setName("btLeer"); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 375, GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel1)
-                                                        .addComponent(jLabel2)
-                                                        .addComponent(jLabelMatricula))
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(txtModelo)
-                                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                                .addComponent(txtMarca)
-                                                                .addComponent(txtMatricula, GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)))
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(btRegistrar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(btLeer, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblModelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btLeer, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jLabel1)
-                                                .addComponent(txtMarca, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(btRegistrar))
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jLabel2)
-                                                        .addComponent(txtModelo, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jLabelMatricula)
-                                                        .addComponent(txtMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(15)
-                                                .addComponent(btLeer)))
-                                .addGap(26)
-                                .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(32, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btLeer, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)))
+                .addComponent(jScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
+    }// </editor-fold>//GEN-END:initComponents
 
-        this.setLayout(layout);
-
-    }
+    private void btRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarActionPerformed
+        
+        ControllerCRUD.insertarVehiculo(txtMarca.getText(), txtModelo.getText(), txtMatricula.getText(), tablaVehiculos);
+        
+    }//GEN-LAST:event_btRegistrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btLeer;
+    private javax.swing.JButton btRegistrar;
+    private javax.swing.JScrollPane jScrollPanel;
+    private javax.swing.JLabel lblMarca;
+    private javax.swing.JLabel lblMatricula;
+    private javax.swing.JLabel lblModelo;
+    private javax.swing.JTable tablaVehiculos;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtMatricula;
+    private javax.swing.JTextField txtModelo;
     // End of variables declaration//GEN-END:variables
 }
