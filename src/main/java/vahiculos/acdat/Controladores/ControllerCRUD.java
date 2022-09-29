@@ -63,10 +63,10 @@ public class ControllerCRUD {
         return -1;
     }
     
-    public static int modificarVehiculo(String marca, String modelo, String matricula, JTable tablaVehiculos) {
+    public static int modificarVehiculo(String marca, String modelo, String matricula, JTable tablaVehiculos, String matriculaSeleccionada) {
         
-        Vehiculo comp = DAOVehiculoImpl.getInstance().modificarVehiculo(matricula);
-
+        Vehiculo comp = DAOVehiculoImpl.getInstance().modificarVehiculo(matriculaSeleccionada, matricula);
+        
         if (comp != null) {
             
             comp.setMarca(marca);
@@ -76,7 +76,6 @@ public class ControllerCRUD {
             return 0;
             
         }
-        
         
         return -1;
     }

@@ -30,12 +30,11 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
 
     @Override
     public int insertarVehiculo(Vehiculo vehiculo) {
-        
-        if(!falsaBD.contains(vehiculo) && falsaBD.add(vehiculo)){
-            return 0;
-        }
-        else if(falsaBD.contains(vehiculo)){
+        if(falsaBD.contains(new Vehiculo(vehiculo.getMatricula()))){
             return 1;
+        }
+        else if(!falsaBD.contains(vehiculo) && falsaBD.add(vehiculo)){
+            return 0;
         }
         
         return -1;
@@ -52,11 +51,11 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
 
     @Override
     public int eliminarVehiculos(List<Vehiculo> lstVehiculos) {
-        for (Vehiculo lstVehiculo : lstVehiculos) {
-            if(!falsaBD.remove(lstVehiculo)){
+        for (Vehiculo vehiculo : lstVehiculos) {
+            if(!falsaBD.remove(vehiculo)){
                 return -1;
             }
-            falsaBD.remove(lstVehiculo);
+            falsaBD.remove(vehiculo);
         }
         return 0;
     }
@@ -75,7 +74,7 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
 
     @Override
     public List<Vehiculo> getVehiculos() {
-        return this.falsaBD;
+        return new ArrayList<Vehiculo>(this.falsaBD);
     }
 
     public static IDAOVehiculo getInstance() {
@@ -96,9 +95,18 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
     }
 
     @Override
-    public Vehiculo modificarVehiculo(String matricula) {
-        
-        return getVehiculo(matricula);
-        
+    public Vehiculo modificarVehiculo(String matriculaAntigua, String matriculaNueva) {
+        if(!matriculaAntigua.equals(matriculaNueva)){
+            if(!falsaBD.contains(new Vehiculo(matriculaNueva))){
+                return getVehiculo(matriculaAntigua);
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            return getVehiculo(matriculaAntigua);
+        }
     }
+    
 }

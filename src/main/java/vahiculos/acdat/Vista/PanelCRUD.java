@@ -4,8 +4,10 @@
  */
 package vahiculos.acdat.Vista;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import vahiculos.acdat.Controladores.ControllerCRUD;
+import vahiculos.acdat.Servicio.Vehiculo;
 
 /**
  *
@@ -17,13 +19,15 @@ public class PanelCRUD extends javax.swing.JPanel {
      * Creates new form PanelCRUD
      */
     private ControllerCRUD controller;
-    VentanaPrincipal ventana;
+    private Vehiculo vehiculoSeleccionado;
+    private VentanaPrincipal ventana;
+    private boolean insertar = true;
 
     public PanelCRUD(VentanaPrincipal ventana) {
         initComponents();
-        
+
         this.ventana = ventana;
-        
+
         ControllerCRUD.cargarTabla(tablaVehiculos);
     }
 
@@ -46,6 +50,7 @@ public class PanelCRUD extends javax.swing.JPanel {
         txtMarca = new javax.swing.JTextField();
         btRegistrar = new javax.swing.JButton();
         btLeer = new javax.swing.JButton();
+        btBorrar = new javax.swing.JButton();
 
         tablaVehiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -64,6 +69,11 @@ public class PanelCRUD extends javax.swing.JPanel {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        tablaVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaVehiculosMouseClicked(evt);
             }
         });
         tablaVehiculos.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -87,6 +97,24 @@ public class PanelCRUD extends javax.swing.JPanel {
         lblMatricula.setText("Matrícula");
         lblMatricula.setPreferredSize(new java.awt.Dimension(41, 16));
 
+        txtModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtModeloKeyPressed(evt);
+            }
+        });
+
+        txtMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMatriculaKeyPressed(evt);
+            }
+        });
+
+        txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMarcaKeyPressed(evt);
+            }
+        });
+
         btRegistrar.setText("Registrar");
         btRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +126,13 @@ public class PanelCRUD extends javax.swing.JPanel {
         btLeer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btLeerActionPerformed(evt);
+            }
+        });
+
+        btBorrar.setText("Borrar");
+        btBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBorrarActionPerformed(evt);
             }
         });
 
@@ -121,7 +156,8 @@ public class PanelCRUD extends javax.swing.JPanel {
                         .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btLeer, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btLeer, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -130,83 +166,128 @@ public class PanelCRUD extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btLeer, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btLeer, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarActionPerformed
         
-        int comp = ControllerCRUD.insertarVehiculo(txtMarca.getText(), txtModelo.getText(), txtMatricula.getText(), tablaVehiculos);
-        
-        if(comp == 0){
-            JOptionPane.showMessageDialog(this, "Se ha insertado el vehículo correctamente");
-        }
-        else if(comp == 1){
-            JOptionPane.showMessageDialog(this, "El vehículo ya está en la base de datos");
-        }
-        
+        insertar(insertar);
+
     }//GEN-LAST:event_btRegistrarActionPerformed
 
     private void btLeerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLeerActionPerformed
-        
-        if(tablaVehiculos.getSelectedRows().length > 1){
+
+        if (tablaVehiculos.getSelectedRows().length > 1) {
             JOptionPane.showMessageDialog(this, "Porfavor, solo se puede seleccionar un solo vehículo");
-        }
-        else if(tablaVehiculos.getSelectedRow() != -1){
+        } else if (tablaVehiculos.getSelectedRow() != -1) {
             int index = tablaVehiculos.getSelectedRow();
 
-            txtMarca.setText((String) tablaVehiculos.getValueAt(index, 0));
-            txtModelo.setText((String) tablaVehiculos.getValueAt(index, 1));
-            txtMatricula.setText((String) tablaVehiculos.getValueAt(index, 2));
-        }
-        else{
+            String marca = (String) tablaVehiculos.getValueAt(index, 0);
+            String modelo = (String) tablaVehiculos.getValueAt(index, 1);
+            String matricula = (String) tablaVehiculos.getValueAt(index, 2);
+
+            txtMarca.setText(marca);
+            txtModelo.setText(modelo);
+            txtMatricula.setText(matricula);
+
+            vehiculoSeleccionado = new Vehiculo(marca, modelo, matricula);
+
+            insertar = false;
+        } else {
             JOptionPane.showMessageDialog(this, "Porfavor, seleccione un vehículo de la tabla");
         }
-        
+
     }//GEN-LAST:event_btLeerActionPerformed
 
     private void tablaVehiculosPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tablaVehiculosPropertyChange
-        if(evt.getPropertyName() == "tableCellEditor"){
-            
-            if(tablaVehiculos.getSelectedRow() != -1){
-                int index = tablaVehiculos.getSelectedRow();
-                
-                int comp = ControllerCRUD.insertarVehiculo((String) tablaVehiculos.getValueAt(index, 0), (String) tablaVehiculos.getValueAt(index, 1), (String) tablaVehiculos.getValueAt(index, 2), tablaVehiculos);
-        
-                if(comp == 0){
-                    JOptionPane.showMessageDialog(this, "Se ha insertado el vehículo correctamente");
-                }
-                else if(comp == 1){
-                    JOptionPane.showMessageDialog(this, "El vehículo ya está en la base de datos");
-                }
-                
-            }
+
+        if (!tablaVehiculos.isEditing()) {
+
+            modificar();
+
         }
     }//GEN-LAST:event_tablaVehiculosPropertyChange
 
+    private void tablaVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaVehiculosMouseClicked
+
+        int index = tablaVehiculos.getSelectedRow();
+        vehiculoSeleccionado = new Vehiculo((String) tablaVehiculos.getValueAt(index, 0), (String) tablaVehiculos.getValueAt(index, 1), (String) tablaVehiculos.getValueAt(index, 2));
+
+    }//GEN-LAST:event_tablaVehiculosMouseClicked
+
+    private void txtMarcaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            insertar(insertar);
+        }
+        
+    }//GEN-LAST:event_txtMarcaKeyPressed
+
+    private void txtModeloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            insertar(insertar);
+        }
+        
+    }//GEN-LAST:event_txtModeloKeyPressed
+
+    private void txtMatriculaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMatriculaKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            insertar(insertar);
+        }
+        
+    }//GEN-LAST:event_txtMatriculaKeyPressed
+
+    private void btBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBorrarActionPerformed
+        
+        if (tablaVehiculos.getSelectedRows().length > 1) {
+            JOptionPane.showMessageDialog(this, "Porfavor, solo se puede seleccionar un solo vehículo");
+        } else if (tablaVehiculos.getSelectedRow() != -1) {
+            int index = tablaVehiculos.getSelectedRow();
+
+            String marca = (String) tablaVehiculos.getValueAt(index, 0);
+            String modelo = (String) tablaVehiculos.getValueAt(index, 1);
+            String matricula = (String) tablaVehiculos.getValueAt(index, 2);
+
+            txtMarca.setText(marca);
+            txtModelo.setText(modelo);
+            txtMatricula.setText(matricula);
+
+            vehiculoSeleccionado = new Vehiculo(marca, modelo, matricula);
+            
+            //ControllerCRUD.modificarVehiculo((String) tablaVehiculos.getValueAt(index, 0));
+
+            insertar = false;
+        } else {
+            JOptionPane.showMessageDialog(this, "Porfavor, seleccione un vehículo de la tabla");
+        }
+        
+    }//GEN-LAST:event_btBorrarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btBorrar;
     private javax.swing.JButton btLeer;
     private javax.swing.JButton btRegistrar;
     private javax.swing.JScrollPane jScrollPanel;
@@ -218,4 +299,69 @@ public class PanelCRUD extends javax.swing.JPanel {
     private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtModelo;
     // End of variables declaration//GEN-END:variables
+
+    private void modificar() {
+
+        if (tablaVehiculos.getSelectedRow() != -1) {
+            int index = tablaVehiculos.getSelectedRow();
+
+            if (tablaVehiculos.getValueAt(index, 0).equals("")) {
+                JOptionPane.showMessageDialog(this, "Porfavor, no deje marca del vehículo sin rellenar");
+                tablaVehiculos.setValueAt(vehiculoSeleccionado.getMarca(), index, 0);
+            } else if (tablaVehiculos.getValueAt(index, 1).equals("")) {
+                JOptionPane.showMessageDialog(this, "Porfavor, no deje modelo del vehículo sin rellenar");
+                tablaVehiculos.setValueAt(vehiculoSeleccionado.getModelo(), index, 1);
+            } else if (tablaVehiculos.getValueAt(index, 2).equals("")) {
+                JOptionPane.showMessageDialog(this, "Porfavor, no deje matricula del vehículo sin rellenar");
+                tablaVehiculos.setValueAt(vehiculoSeleccionado.getMatricula(), index, 2);
+            } else {
+
+                int comp = ControllerCRUD.modificarVehiculo((String) tablaVehiculos.getValueAt(index, 0), (String) tablaVehiculos.getValueAt(index, 1), (String) tablaVehiculos.getValueAt(index, 2), tablaVehiculos, vehiculoSeleccionado.getMatricula());
+
+                if (comp == 0) {
+                    JOptionPane.showMessageDialog(this, "Se ha modificado el vehículo correctamente");
+                } else if (comp == -1) {
+                    JOptionPane.showMessageDialog(this, "La nueva matrícula del vehículo ya se encuentra en la base de datos");
+                    tablaVehiculos.setValueAt(vehiculoSeleccionado.getMatricula(), index, 2);
+                }
+            }
+        }
+    }
+
+    private void insertar(boolean insertar) {
+        if (txtMarca.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Porfavor, no deje marca del vehículo sin rellenar");
+        } else if (txtMarca.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Porfavor, no deje modelo del vehículo sin rellenar");
+        } else if (txtMarca.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Porfavor, no deje matricula del vehículo sin rellenar");
+        }else if (insertar) {
+            int comp = ControllerCRUD.insertarVehiculo(txtMarca.getText(), txtModelo.getText(), txtMatricula.getText(), tablaVehiculos);
+
+            if (comp == 0) {
+                JOptionPane.showMessageDialog(this, "Se ha insertado el vehículo correctamente");
+            } else if (comp == 1) {
+                JOptionPane.showMessageDialog(this, "El vehículo ya está en la base de datos");
+            }
+
+            txtMarca.setText("");
+            txtModelo.setText("");
+            txtMatricula.setText("");
+
+        } else {
+            int comp = ControllerCRUD.modificarVehiculo(txtMarca.getText(), txtModelo.getText(), txtMatricula.getText(), tablaVehiculos, vehiculoSeleccionado.getMatricula());
+
+            if (comp == 0) {
+                JOptionPane.showMessageDialog(this, "Se ha modificado el vehículo correctamente");
+            } else if (comp == -1) {
+                JOptionPane.showMessageDialog(this, "No hemos encontrado el vehículo en la base de datos");
+            }
+
+            txtMarca.setText("");
+            txtModelo.setText("");
+            txtMatricula.setText("");
+
+            this.insertar = true;
+        }
+    }
 }

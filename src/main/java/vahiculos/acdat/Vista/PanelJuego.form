@@ -53,7 +53,7 @@
     <Component class="javax.swing.JLabel" name="etiSecreta">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Pulse nuevo para comenzar"/>
+        <Property name="text" type="java.lang.String" value="Pulse nuevo para comenzar..."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnNuevoCoche">

@@ -35,8 +35,6 @@ public class GestionVehiculos {
         cadenaTemp = randomizarPalabra(cadena1);
         cadenaTemp.append("     " + randomizarPalabra(cadena2));
         
-        System.out.println(cadena);
-        
         return cadenaTemp.toString();
     }
     

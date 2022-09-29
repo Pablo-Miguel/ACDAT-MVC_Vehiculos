@@ -35,6 +35,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btRegistrar" min="-2" pref="141" max="-2" attributes="0"/>
                           <Component id="btLeer" min="-2" pref="141" max="-2" attributes="0"/>
+                          <Component id="btBorrar" min="-2" pref="141" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -49,35 +50,27 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblMarca" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="txtMarca" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblModelo" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                          <Component id="txtModelo" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblMatricula" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                          <Component id="txtMatricula" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btLeer" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="btRegistrar" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblMarca" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="txtMarca" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btLeer" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblModelo" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="txtModelo" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btRegistrar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblMatricula" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="txtMatricula" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="btBorrar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPanel" min="-2" pref="249" max="-2" attributes="0"/>
-              <EmptySpace pref="44" max="32767" attributes="0"/>
+              <EmptySpace pref="41" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,6 +94,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaVehiculosMouseClicked"/>
             <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="tablaVehiculosPropertyChange"/>
           </Events>
         </Component>
@@ -140,10 +134,19 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtModelo">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModeloKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtMatricula">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMatriculaKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtMarca">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMarcaKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btRegistrar">
       <Properties>
@@ -159,6 +162,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btLeerActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btBorrar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Borrar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btBorrarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

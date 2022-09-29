@@ -13,9 +13,9 @@ import vahiculos.acdat.Controladores.ControllerJuego;
  */
 public class PanelJuego extends javax.swing.JPanel {
     
-    ControllerJuego conJuego;
-    VentanaPrincipal ventana;
-
+    private ControllerJuego conJuego;
+    private VentanaPrincipal ventana;
+    
     /**
      * Creates new form PanelJuego
      */
@@ -27,7 +27,7 @@ public class PanelJuego extends javax.swing.JPanel {
         conJuego = new ControllerJuego();
 
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +43,7 @@ public class PanelJuego extends javax.swing.JPanel {
         txtRespuesta = new javax.swing.JTextField();
 
         etiSecreta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiSecreta.setText("Pulse nuevo para comenzar");
+        etiSecreta.setText("Pulse nuevo para comenzar...");
 
         btnNuevoCoche.setText("Nuevo");
         btnNuevoCoche.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +110,9 @@ public class PanelJuego extends javax.swing.JPanel {
     private void txtRespuestaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRespuestaKeyPressed
         
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
             conJuego.comprobarCoche(txtRespuesta);
+            
         }
         
     }//GEN-LAST:event_txtRespuestaKeyPressed
