@@ -30,10 +30,14 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
 
     @Override
     public int insertarVehiculo(Vehiculo vehiculo) {
-        if(falsaBD.add(vehiculo)){
+        
+        if(!falsaBD.contains(vehiculo) && falsaBD.add(vehiculo)){
             return 0;
         }
-
+        else if(falsaBD.contains(vehiculo)){
+            return 1;
+        }
+        
         return -1;
     }
 

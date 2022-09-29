@@ -66,6 +66,11 @@ public class PanelCRUD extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        tablaVehiculos.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tablaVehiculosPropertyChange(evt);
+            }
+        });
         jScrollPanel.setViewportView(tablaVehiculos);
 
         lblMarca.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -153,7 +158,14 @@ public class PanelCRUD extends javax.swing.JPanel {
 
     private void btRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarActionPerformed
         
-        ControllerCRUD.insertarVehiculo(txtMarca.getText(), txtModelo.getText(), txtMatricula.getText(), tablaVehiculos);
+        int comp = ControllerCRUD.insertarVehiculo(txtMarca.getText(), txtModelo.getText(), txtMatricula.getText(), tablaVehiculos);
+        
+        if(comp == 0){
+            JOptionPane.showMessageDialog(this, "Se ha insertado el vehículo correctamente");
+        }
+        else if(comp == 1){
+            JOptionPane.showMessageDialog(this, "");
+        }
         
     }//GEN-LAST:event_btRegistrarActionPerformed
 
@@ -164,28 +176,22 @@ public class PanelCRUD extends javax.swing.JPanel {
         }
         else if(tablaVehiculos.getSelectedRow() != -1){
             int index = tablaVehiculos.getSelectedRow();
-            String valor;
 
-            for(int i = 0; i < tablaVehiculos.getColumnModel().getColumnCount(); i++){
-                valor = (String) tablaVehiculos.getValueAt(index, i);
-                switch (i) {
-                    case 0:
-                        txtMarca.setText(valor);
-                        break;
-                    case 1:
-                        txtModelo.setText(valor);
-                        break;
-                    case 2:
-                        txtMatricula.setText(valor);
-                        break;
-                }
-            }
+            txtMarca.setText((String) tablaVehiculos.getValueAt(index, 0));
+            txtModelo.setText((String) tablaVehiculos.getValueAt(index, 1));
+            txtMatricula.setText((String) tablaVehiculos.getValueAt(index, 2));
         }
         else{
             JOptionPane.showMessageDialog(this, "Porfavor, seleccione un vehículo de la tabla");
         }
         
     }//GEN-LAST:event_btLeerActionPerformed
+
+    private void tablaVehiculosPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tablaVehiculosPropertyChange
+        if(evt.getPropertyName() == "tableCellEditor"){
+            tablaVehiculos.getSelectedRow();
+        }
+    }//GEN-LAST:event_tablaVehiculosPropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btLeer;

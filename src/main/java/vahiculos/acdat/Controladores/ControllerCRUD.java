@@ -44,13 +44,22 @@ public class ControllerCRUD {
         tablaVehiculos.setModel(modelo);
     }
 
-    public static boolean insertarVehiculo(String marca, String modelo, String matricula, JTable tablaVehiculos) {
-        boolean insertado = false;
+    public static int insertarVehiculo(String marca, String modelo, String matricula, JTable tablaVehiculos) {
+        
+        int comp = DAOVehiculoImpl.getInstance().insertarVehiculo(new Vehiculo(marca, modelo, matricula));
 
-        if (DAOVehiculoImpl.getInstance().insertarVehiculo(new Vehiculo(marca, modelo, matricula)) == 0) {
-            insertado = true;
+        if (comp == 0) {
+            
             cargarTabla(tablaVehiculos);
+            return 0;
+            
         }
-        return insertado;
+        else if(comp == 1){
+        
+            return 1;
+        
+        }
+        
+        return -1;
     }
 }
