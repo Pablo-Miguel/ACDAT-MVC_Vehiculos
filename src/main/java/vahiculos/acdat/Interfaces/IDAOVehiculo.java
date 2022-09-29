@@ -24,5 +24,7 @@ public interface IDAOVehiculo {
     public Vehiculo getVehiculo(String matricula);
 
     public List<Vehiculo> getVehiculos();
+
+    public Vehiculo modificarVehiculo(String matricula);
     
 }

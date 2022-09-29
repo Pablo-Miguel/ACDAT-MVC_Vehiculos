@@ -164,7 +164,7 @@ public class PanelCRUD extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Se ha insertado el vehículo correctamente");
         }
         else if(comp == 1){
-            JOptionPane.showMessageDialog(this, "");
+            JOptionPane.showMessageDialog(this, "El vehículo ya está en la base de datos");
         }
         
     }//GEN-LAST:event_btRegistrarActionPerformed
@@ -189,7 +189,20 @@ public class PanelCRUD extends javax.swing.JPanel {
 
     private void tablaVehiculosPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tablaVehiculosPropertyChange
         if(evt.getPropertyName() == "tableCellEditor"){
-            tablaVehiculos.getSelectedRow();
+            
+            if(tablaVehiculos.getSelectedRow() != -1){
+                int index = tablaVehiculos.getSelectedRow();
+                
+                int comp = ControllerCRUD.insertarVehiculo((String) tablaVehiculos.getValueAt(index, 0), (String) tablaVehiculos.getValueAt(index, 1), (String) tablaVehiculos.getValueAt(index, 2), tablaVehiculos);
+        
+                if(comp == 0){
+                    JOptionPane.showMessageDialog(this, "Se ha insertado el vehículo correctamente");
+                }
+                else if(comp == 1){
+                    JOptionPane.showMessageDialog(this, "El vehículo ya está en la base de datos");
+                }
+                
+            }
         }
     }//GEN-LAST:event_tablaVehiculosPropertyChange
 

@@ -94,4 +94,11 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
         
         return -1;
     }
+
+    @Override
+    public Vehiculo modificarVehiculo(String matricula) {
+        
+        return getVehiculo(matricula);
+        
+    }
 }
