@@ -4,6 +4,7 @@
  */
 package vahiculos.acdat.Vista;
 
+import javax.swing.JOptionPane;
 import vahiculos.acdat.Controladores.ControllerCRUD;
 
 /**
@@ -56,7 +57,15 @@ public class PanelCRUD extends javax.swing.JPanel {
             new String [] {
                 "Marca", "Modelo", "Matricula"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPanel.setViewportView(tablaVehiculos);
 
         lblMarca.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -81,6 +90,11 @@ public class PanelCRUD extends javax.swing.JPanel {
         });
 
         btLeer.setText("Leer");
+        btLeer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLeerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -142,6 +156,36 @@ public class PanelCRUD extends javax.swing.JPanel {
         ControllerCRUD.insertarVehiculo(txtMarca.getText(), txtModelo.getText(), txtMatricula.getText(), tablaVehiculos);
         
     }//GEN-LAST:event_btRegistrarActionPerformed
+
+    private void btLeerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLeerActionPerformed
+        
+        if(tablaVehiculos.getSelectedRows().length > 1){
+            JOptionPane.showMessageDialog(this, "Porfavor, solo se puede seleccionar un solo vehículo");
+        }
+        else if(tablaVehiculos.getSelectedRow() != -1){
+            int index = tablaVehiculos.getSelectedRow();
+            String valor;
+
+            for(int i = 0; i < tablaVehiculos.getColumnModel().getColumnCount(); i++){
+                valor = (String) tablaVehiculos.getValueAt(index, i);
+                switch (i) {
+                    case 0:
+                        txtMarca.setText(valor);
+                        break;
+                    case 1:
+                        txtModelo.setText(valor);
+                        break;
+                    case 2:
+                        txtMatricula.setText(valor);
+                        break;
+                }
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Porfavor, seleccione un vehículo de la tabla");
+        }
+        
+    }//GEN-LAST:event_btLeerActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btLeer;

@@ -4,6 +4,7 @@
  */
 package vahiculos.acdat.Vista;
 
+import java.awt.event.KeyEvent;
 import vahiculos.acdat.Controladores.ControllerJuego;
 
 /**
@@ -58,6 +59,12 @@ public class PanelJuego extends javax.swing.JPanel {
             }
         });
 
+        txtRespuesta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtRespuestaKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,12 +96,24 @@ public class PanelJuego extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoCocheActionPerformed
+        
         conJuego.nuevoCoche(etiSecreta);
+        
     }//GEN-LAST:event_btnNuevoCocheActionPerformed
 
     private void btnComprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprobarActionPerformed
+        
         conJuego.comprobarCoche(txtRespuesta);
+        
     }//GEN-LAST:event_btnComprobarActionPerformed
+
+    private void txtRespuestaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRespuestaKeyPressed
+        
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            conJuego.comprobarCoche(txtRespuesta);
+        }
+        
+    }//GEN-LAST:event_txtRespuestaKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
