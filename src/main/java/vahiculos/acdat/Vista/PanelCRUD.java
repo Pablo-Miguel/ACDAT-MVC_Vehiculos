@@ -271,15 +271,18 @@ public class PanelCRUD extends javax.swing.JPanel {
             String modelo = (String) tablaVehiculos.getValueAt(index, 1);
             String matricula = (String) tablaVehiculos.getValueAt(index, 2);
 
-            txtMarca.setText(marca);
-            txtModelo.setText(modelo);
-            txtMatricula.setText(matricula);
-
             vehiculoSeleccionado = new Vehiculo(marca, modelo, matricula);
             
-            //ControllerCRUD.modificarVehiculo((String) tablaVehiculos.getValueAt(index, 0));
-
-            insertar = false;
+            int comp = ControllerCRUD.borrarVehiculo((String) tablaVehiculos.getValueAt(index, 2), tablaVehiculos);
+            
+            if (comp == 0) {
+                JOptionPane.showMessageDialog(this, "Se ha borrado el vehículo correctamente");
+            } else if (comp == -1) {
+                JOptionPane.showMessageDialog(this, "El vehículo no se ha podido borrar");
+            }
+            
+            
+            //insertar = false;
         } else {
             JOptionPane.showMessageDialog(this, "Porfavor, seleccione un vehículo de la tabla");
         }
@@ -354,7 +357,7 @@ public class PanelCRUD extends javax.swing.JPanel {
             if (comp == 0) {
                 JOptionPane.showMessageDialog(this, "Se ha modificado el vehículo correctamente");
             } else if (comp == -1) {
-                JOptionPane.showMessageDialog(this, "No hemos encontrado el vehículo en la base de datos");
+                JOptionPane.showMessageDialog(this, "La nueva matrícula del vehículo ya se encuentra en la base de datos");
             }
 
             txtMarca.setText("");

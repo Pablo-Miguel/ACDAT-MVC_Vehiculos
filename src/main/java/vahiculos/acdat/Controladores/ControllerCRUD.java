@@ -79,5 +79,15 @@ public class ControllerCRUD {
         
         return -1;
     }
+
+    public static int borrarVehiculo(String matricula, JTable tabla) {
+        if(DAOVehiculoImpl.getInstance().eliminarVehiculo(matricula) == 0){
+            cargarTabla(tabla);
+            return 0;
+        }
+        else{
+            return -1;
+        }
+    }
     
 }

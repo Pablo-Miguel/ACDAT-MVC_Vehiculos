@@ -14,7 +14,7 @@ public class PanelAcercaDe extends javax.swing.JPanel {
      * Creates new form PanelAcercaDe
      */
     
-    VentanaPrincipal ventana;
+    private VentanaPrincipal ventana;
     
     public PanelAcercaDe(VentanaPrincipal ventana) {
         initComponents();
