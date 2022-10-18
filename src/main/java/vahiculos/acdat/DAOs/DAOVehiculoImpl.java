@@ -4,6 +4,8 @@
  */
 package vahiculos.acdat.DAOs;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import vahiculos.acdat.Servicio.Vehiculo;
@@ -30,51 +32,29 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
 
     @Override
     public int insertarVehiculo(Vehiculo vehiculo) {
-        if(falsaBD.contains(new Vehiculo(vehiculo.getMatricula()))){
-            return 1;
-        }
-        else if(!falsaBD.contains(vehiculo) && falsaBD.add(vehiculo)){
+        try {
+            ConexionDB.insertarVehiculo(vehiculo);
             return 0;
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            return 1;
+        } catch (SQLException ex) {
+            return -1;
         }
-        
-        return -1;
     }
 
     @Override
     public int eliminarVehiculo(String matricula) {
-        if(falsaBD.remove(new Vehiculo(matricula))){
-            return 0;
-        }
-        
-        return -1;
-    }
-
-    @Override
-    public int eliminarVehiculos(List<Vehiculo> lstVehiculos) {
-        for (Vehiculo vehiculo : lstVehiculos) {
-            if(!falsaBD.remove(vehiculo)){
-                return -1;
-            }
-            falsaBD.remove(vehiculo);
-        }
-        return 0;
+        return ConexionDB.deleteVehiculo(matricula);
     }
 
     @Override
     public Vehiculo getVehiculo(String matricula) {
-        if(falsaBD.contains(new Vehiculo(matricula))){
-            for (Vehiculo vehiculo : falsaBD) {
-                if(new Vehiculo(matricula).equals(vehiculo)){
-                    return vehiculo;
-                }
-            }
-        }
-        return null;
+        return ConexionDB.getVehiculo(matricula);
     }
 
     @Override
     public List<Vehiculo> getVehiculos() {
-        return new ArrayList<Vehiculo>(this.falsaBD);
+        return ConexionDB.getVehiculos();
     }
 
     public static IDAOVehiculo getInstance() {
@@ -86,27 +66,16 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
     }
 
     @Override
-    public int eliminarVehiculo(Vehiculo vehiculo) {
-        if(falsaBD.remove(vehiculo)){
-            return 0;
-        }
-        
-        return -1;
-    }
-
-    @Override
-    public Vehiculo modificarVehiculo(String matriculaAntigua, String matriculaNueva) {
-        if(!matriculaAntigua.equals(matriculaNueva)){
-            if(!falsaBD.contains(new Vehiculo(matriculaNueva))){
-                return getVehiculo(matriculaAntigua);
-            }
-            else {
+    public Vehiculo modificarVehiculo(String matriculaAntigua, String matriculaNueva, String marca, String modelo) {
+        if (!matriculaAntigua.equals(matriculaNueva)) {
+            if (!falsaBD.contains(new Vehiculo(matriculaNueva))) {
+                return ConexionDB.updateVehiculo(matriculaAntigua, matriculaNueva, marca, modelo);
+            } else {
                 return null;
             }
-        }
-        else {
-            return getVehiculo(matriculaAntigua);
+        } else {
+            return ConexionDB.updateVehiculo(matriculaAntigua, matriculaNueva, marca, modelo);
         }
     }
-    
+
 }

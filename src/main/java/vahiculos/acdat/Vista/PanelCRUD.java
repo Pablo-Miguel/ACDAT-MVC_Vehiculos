@@ -7,6 +7,7 @@ package vahiculos.acdat.Vista;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import vahiculos.acdat.Controladores.ControllerCRUD;
+import vahiculos.acdat.DAOs.ConexionDB;
 import vahiculos.acdat.Servicio.Vehiculo;
 
 /**
@@ -29,6 +30,8 @@ public class PanelCRUD extends javax.swing.JPanel {
         this.ventana = ventana;
 
         ControllerCRUD.cargarTabla(tablaVehiculos);
+        
+        //System.out.println(ConexionDB.getVehiculo("1221FDF").toString());
     }
 
     /**
@@ -345,6 +348,8 @@ public class PanelCRUD extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Se ha insertado el vehículo correctamente");
             } else if (comp == 1) {
                 JOptionPane.showMessageDialog(this, "El vehículo ya está en la base de datos");
+            } else if (comp == -1){
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error al insertar el vehículo");
             }
 
             txtMarca.setText("");

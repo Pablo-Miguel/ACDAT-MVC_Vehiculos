@@ -59,19 +59,19 @@ public class ControllerCRUD {
             return 1;
         
         }
+        else {
         
-        return -1;
+            return -1;
+        
+        }
     }
     
     public static int modificarVehiculo(String marca, String modelo, String matricula, JTable tablaVehiculos, String matriculaSeleccionada) {
         
-        Vehiculo comp = DAOVehiculoImpl.getInstance().modificarVehiculo(matriculaSeleccionada, matricula);
+        Vehiculo comp = DAOVehiculoImpl.getInstance().modificarVehiculo(matriculaSeleccionada, matricula, marca, modelo);
         
         if (comp != null) {
             
-            comp.setMarca(marca);
-            comp.setModelo(modelo);
-            comp.setMatricula(matricula);
             cargarTabla(tablaVehiculos);
             return 0;
             

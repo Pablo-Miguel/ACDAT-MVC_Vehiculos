@@ -11,7 +11,13 @@
         <maven.compiler.target>18</maven.compiler.target>
         <exec.mainClass>vahiculos.acdat.mvc_vehiculos.ACDATMVC_Vehiculos</exec.mainClass>
     </properties>
-    
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.30</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
