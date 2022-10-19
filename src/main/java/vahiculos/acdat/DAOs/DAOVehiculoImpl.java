@@ -17,16 +17,10 @@ import vahiculos.acdat.Interfaces.IDAOVehiculo;
  */
 public class DAOVehiculoImpl implements IDAOVehiculo {
 
-    private List<Vehiculo> falsaBD;
     private static IDAOVehiculo dao = null;
 
     private DAOVehiculoImpl() {
         super();
-        this.falsaBD = new ArrayList<Vehiculo>();
-        falsaBD.add(new Vehiculo("Renault", "Zoe", "2345FDF"));
-        falsaBD.add(new Vehiculo("Renault", "Fluence", "0000FTL"));
-        falsaBD.add(new Vehiculo("Tesla", "3", "2422FHT"));
-        falsaBD.add(new Vehiculo("Tesla", "X", "1221FDF"));
 
     }
 
@@ -68,7 +62,7 @@ public class DAOVehiculoImpl implements IDAOVehiculo {
     @Override
     public Vehiculo modificarVehiculo(String matriculaAntigua, String matriculaNueva, String marca, String modelo) {
         if (!matriculaAntigua.equals(matriculaNueva)) {
-            if (!falsaBD.contains(new Vehiculo(matriculaNueva))) {
+            if (ConexionDB.getVehiculo(matriculaNueva) == null) {
                 return ConexionDB.updateVehiculo(matriculaAntigua, matriculaNueva, marca, modelo);
             } else {
                 return null;
