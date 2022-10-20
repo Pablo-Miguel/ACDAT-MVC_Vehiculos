@@ -53,7 +53,7 @@ public class ConexionDB {
             stmt.setString(3, vehiculo.getMatricula());
             System.out.println(stmt.toString());
             stmt.execute();
-            //rs = st.executeQuery("INSERT INTO vehiculo (Marca, Modelo, Matricula) VALUES (\"" + vehiculo.getMarca() + "\", \"" + vehiculo.getModelo()+ "\", \"" + vehiculo.getMatricula()+ "\");");
+            
         } catch (SQLIntegrityConstraintViolationException ex){
             System.out.println("Error SQL: " + ex.toString());
             throw new SQLIntegrityConstraintViolationException();

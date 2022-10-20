@@ -6,7 +6,6 @@ package vahiculos.acdat.DAOs;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
 import java.util.List;
 import vahiculos.acdat.Servicio.Vehiculo;
 import vahiculos.acdat.Interfaces.IDAOVehiculo;
