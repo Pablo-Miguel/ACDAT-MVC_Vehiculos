@@ -17,7 +17,6 @@ import vahiculos.acdat.Servicio.Vehiculo;
  */
 public class ConexionDB {
     static Connection conn = null;
-    static Statement st = null;
     static ResultSet rs = null;
     static PreparedStatement stmt = null;
     static String bd = "vehiculos";
@@ -44,7 +43,6 @@ public class ConexionDB {
         enlace();
         
         try {
-            st = conn.createStatement();
             
             String sql = "INSERT INTO vehiculo (Marca, Modelo, Matricula) VALUES (?, ?, ?);";
             stmt = conn.prepareStatement(sql);
@@ -74,10 +72,11 @@ public class ConexionDB {
         
         
         try {
-            st = conn.createStatement();
             
-            rs = st.executeQuery("SELECT * FROM vehiculo");
-            System.out.println("SELECT * FROM vehiculo");
+            String sql = "SELECT * FROM vehiculo";
+            stmt = conn.prepareStatement(sql);
+            System.out.println(stmt.toString());
+            rs = stmt.executeQuery();
             
             listaVehiculos = new ArrayList<Vehiculo>();
             while (rs.next()) {
@@ -100,7 +99,6 @@ public class ConexionDB {
         enlace();
         
         try {
-            st = conn.createStatement();
             
             String sql = "SELECT * FROM vehiculo WHERE matricula = ?;";
             stmt = conn.prepareStatement(sql);
@@ -126,7 +124,6 @@ public class ConexionDB {
         enlace();
         
         try {
-            st = conn.createStatement();
             
             String sql = "UPDATE vehiculo SET Marca = ?, Modelo = ?, Matricula = ? WHERE Matricula = ?;";
             stmt = conn.prepareStatement(sql);
@@ -154,7 +151,6 @@ public class ConexionDB {
         enlace();
         
         try {
-            st = conn.createStatement();
             
             String sql = "DELETE FROM vehiculo WHERE matricula = ?;";
             stmt = conn.prepareStatement(sql);
@@ -176,18 +172,9 @@ public class ConexionDB {
     
     private static void cerrarSesion() {
         try {
-            if(rs != null){
-                rs.close();
-            }
-            if(st != null){
-                st.close();
-            }
-            if(stmt != null){
-                stmt.close();
-            }
-            if(conn != null){
-                conn.close();
-            }
+            rs.close();
+            stmt.close();
+            conn.close();
             System.out.println("Conexión cerrada \n");
         } catch (SQLException ex) {
             Logger.getLogger(ConexionDB.class.getName()).log(Level.SEVERE, null, ex);
