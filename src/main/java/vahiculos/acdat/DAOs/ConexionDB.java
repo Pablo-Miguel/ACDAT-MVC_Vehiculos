@@ -78,6 +78,13 @@ public class ConexionDB {
             System.out.println(stmt.toString());
             rs = stmt.executeQuery();
             
+            /*
+                ResultSet rs = stmt.executeQuery("SELECT a, b, c FROM TABLE2");
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
+                String name = rsmd.getColumnName(1);
+            */
+            
             listaVehiculos = new ArrayList<Vehiculo>();
             while (rs.next()) {
                 listaVehiculos.add(new Vehiculo(rs.getString("Marca"), rs.getString("Modelo"), rs.getString("Matricula")));
